@@ -1,0 +1,16 @@
+// C++ code
+//
+int pot = 0;
+void setup()
+{
+  pinMode(2, OUTPUT);
+  pinMode(A0,INPUT);
+}
+
+void loop()
+{
+  pot= analogRead(A0);
+  
+tone(2,pot);
+  
+}
