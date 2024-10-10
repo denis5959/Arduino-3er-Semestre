@@ -1,0 +1,25 @@
+// C++ code
+//
+int photo = 2;
+int led= 2;
+
+
+void setup()
+{
+  pinMode(led, OUTPUT);
+  pinMode(A0, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  photo = analogRead(A0);
+  
+  if(photo>= 500){
+  digitalWrite(led, HIGH);
+  }
+  else{
+    digitalWrite(led, LOW);
+      }
+  
+}
