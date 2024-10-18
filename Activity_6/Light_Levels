@@ -1,0 +1,35 @@
+int photoPin = A0;  
+int greenLED = 4;   
+int yellowLED = 2;  
+int redLED = 7;    
+
+void setup() {
+  pinMode(greenLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+  pinMode(redLED, OUTPUT);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  int lightLevel = analogRead(photoPin);  
+  Serial.println(lightLevel); 
+
+  // Adjust these thresholds based on your environment and photoresistor
+  if (lightLevel>=320) {  
+    digitalWrite(greenLED, HIGH);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(redLED, LOW);
+  }
+  else if (lightLevel >= 310 && lightLevel <= 319) {  
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, HIGH);
+    digitalWrite(redLED, LOW);
+  }
+  else {  
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    digitalWrite(redLED, HIGH);
+  }
+
+  delay(100);  
+}
