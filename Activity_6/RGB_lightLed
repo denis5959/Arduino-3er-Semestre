@@ -1,0 +1,36 @@
+//This code was made on tinkercad only and not tested irl, so you may expect a difference in the value readings.
+
+const int photoPin = A0;     
+const int redPin = 3;       
+const int greenPin = 5;     
+const int bluePin = 6;     
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  Serial.begin(9600);  
+}
+
+void loop() {
+  int lightLevel = analogRead(photoPin); 
+  Serial.println(lightLevel); 
+
+  if (lightLevel > 800) {  
+    setColor(0, 255, 0);
+  }
+  else if (lightLevel > 400) {  
+    setColor(255, 255, 0);  
+  }
+  else {  
+    setColor(255, 0, 0); 
+  }
+
+  delay(100);  
+}
+
+
+void setColor(int redValue, int greenValue, int blueValue) {
+  analogWrite(redPin, redValue);
+  analogWrite(greenPin, greenValue);
+  analogWrite(bluePin, blueValue);
+}
