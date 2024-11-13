@@ -1,0 +1,43 @@
+const int trigPin = 4;    // Trigger pin for HC-SR04
+const int echoPin = 2;    // Echo pin for HC-SR04
+const int pumpPin = 9;    // Pin to control the water pump through MOSFET
+
+const int totalDistance = 10; // Distance threshold in cm to activate the pump
+
+void setup() {
+  pinMode(trigPin, OUTPUT);    // Set trigPin as output
+  pinMode(echoPin, INPUT);     // Set echoPin as input
+  pinMode(pumpPin, OUTPUT);    // Set pump pin as output
+  Serial.begin(9600);          // Start serial communication for debugging
+}
+
+void loop() {
+  long duration, distance;
+  
+  // Send a 10-microsecond pulse to start the measurement
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Read the time it takes for the pulse to return
+  duration = pulseIn(echoPin, HIGH);
+
+  // Convert the duration to distance in cm
+  distance = duration * 0.034 / 2;
+
+  // Print the distance for debugging (optional)
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // Check if an object is within the threshold distance
+  if (distance > 0 && distance <= totalDistance) {
+    digitalWrite(pumpPin, HIGH);  // Activate the pump
+  } else {
+    digitalWrite(pumpPin, LOW);   // Deactivate the pump
+  }
+
+  delay(100); // Small delay to avoid excessive readings
+}
