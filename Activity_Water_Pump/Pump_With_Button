@@ -1,0 +1,23 @@
+const int buttonPin = 7;    // Pin connected to the button
+const int ledPin = 8;       // Pin connected to the LED
+const int pumpPin = 9;      // Pin connected to the MOSFET controlling the pump
+
+int buttonState = 0;        // Variable for reading the button status
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);  // Set button pin as input with pull-up resistor
+  pinMode(ledPin, OUTPUT);           // Set LED pin as output
+  pinMode(pumpPin, OUTPUT);          // Set pump (MOSFET) pin as output
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin); // Read the button state
+
+  if (buttonState == HIGH) {            // Check if button is pressed (LOW because of pull-up)
+    digitalWrite(ledPin, HIGH);        // Turn on LED
+    digitalWrite(pumpPin, HIGH);       // Start the water pump
+  } else {
+    digitalWrite(ledPin, LOW);         // Turn off LED
+    digitalWrite(pumpPin, LOW);        // Stop the water pump
+  }
+}
